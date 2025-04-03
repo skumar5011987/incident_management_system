@@ -97,15 +97,12 @@ AUTH_USER_MODEL = 'app.User'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',  
+        'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'ims_db',  
-        'USER': 'root',  
-        'PASSWORD': 'root',  
-        'HOST': '127.0.0.1',
-        'PORT': '3306',
-        'OPTIONS': {
-            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"  # Recommended for data integrity
-        }
+        'USER': 'postgres',  
+        'PASSWORD': 'postgres',  
+        'HOST': 'ims_db',
+        'PORT': '5432',
     }
 }
 

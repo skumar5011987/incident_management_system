@@ -1,0 +1,47 @@
+services:
+    backend:
+      build: ./backend
+      container_name: ims-backend
+      restart: always
+      ports:
+        - "8000:8000"
+      
+      volumes:
+        - ./backend:/app
+      
+      command: >
+        bash -c "python manage.py makemigrations &&
+                 python manage.py migrate && 
+                 python manage.py runserver 0.0.0.0:8000"
+
+      depends_on:
+        - db
+    
+    frontend:
+      build: ./frontend/ims
+      container_name: ims-frontend
+      restart: always
+      ports:
+        - "3000:80"
+      depends_on:
+        - backend
+    
+
+    db:
+      image: postgres:16
+      container_name: ims_db
+      restart: always
+      volumes:
+        - pg_data:/var/lib/postgresql/data
+      environment:
+        POSTGRES_DB: ims_db
+        POSTGRES_USER: postgres
+        POSTGRES_PASSWORD: postgres
+      
+      ports:
+        - "5432:5432"
+
+volumes:
+  pg_data:
+  
+
